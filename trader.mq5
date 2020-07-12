@@ -3,6 +3,7 @@
 Trader::Trader()
 {
    reset_trailling_start();
+   _trainlling_stop_distance_ticks = 0;
 }
 
 bool Trader::has_position()
@@ -38,7 +39,6 @@ double Trader::stop_loss()
 double Trader::take_profit()
 {
    return _position.TakeProfit();
-
 }
 
 void Trader::update_position(double sl, double tp)
@@ -56,8 +56,15 @@ void Trader::close_all_positions()
    _trade.PositionClose(_symbol);
 }
 
-void Trader::trade(TradeType tradeType, int sl, int tp)
+void Trader::set_trailling(int ts)
 {
+   _trainlling_stop_distance_ticks = ts;
+}
+
+void Trader::trade(TradeType tradeType, int sl, int tp, int ts)
+{
+   set_trailling(ts);
+   
    double stop_loss;
    double take_profit;
    if(tradeType == TradeType::TRADE_BUY)
@@ -123,6 +130,31 @@ void Trader::update_trailling_stop_start(int trailling_start)
    {
       double target = price_open() - trailling_start * tick();
       if(ask() <= target && stop_loss() > target)
+      {
+         update_position(target,take_profit());
+         _has_activated_trailling_start = true;
+      }
+   }
+}
+
+void Trader::update_trailling_stop()
+{
+   if(_trainlling_stop_distance_ticks == 0)
+      return ;
+
+   if(get_position_type() == POSITION_TYPE_BUY)
+   {
+      double target = bid() - _trainlling_stop_distance_ticks * tick();
+      if(stop_loss() < target)
+      {
+         update_position(target,take_profit());
+         _has_activated_trailling_start = true;
+      }
+   }
+   else if(get_position_type() == POSITION_TYPE_SELL)
+   {
+      double target = ask() + _trainlling_stop_distance_ticks * tick();
+      if(stop_loss() > target)
       {
          update_position(target,take_profit());
          _has_activated_trailling_start = true;

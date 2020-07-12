@@ -15,16 +15,19 @@ class Trader{
       double _lot;
       string _symbol;
       bool _has_activated_trailling_start;
+      int _trainlling_stop_distance_ticks;
    public:
       Trader();
       bool has_position();
       ENUM_POSITION_TYPE get_position_type();
       void close_all_positions();
-      void trade(TradeType tradeType, int sl, int tp);
+      void trade(TradeType tradeType, int sl, int tp, int ts);
       void update_mql_tick();
       void update_tick_size();      
       void start(string symbol);
       void update_trailling_stop_start(int trailling_start);
+      void update_trailling_stop();
+      void set_trailling(int);
       double get_lot() const;
       
       double bid();

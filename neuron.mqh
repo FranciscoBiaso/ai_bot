@@ -62,4 +62,6 @@ class Neuron{
          for(int i=0;i<ArraySize(_inputs);i++)
             _normalized_inputs[i] = (double)(_inputs[i]-_min)/(_max-_min);
       }
+      
+      int getInputSize(){ return ArraySize(_inputs); }
 };
