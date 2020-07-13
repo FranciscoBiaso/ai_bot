@@ -62,9 +62,7 @@ void Trader::set_trailling(int ts)
 }
 
 void Trader::trade(TradeType tradeType, int sl, int tp, int ts)
-{
-   set_trailling(ts);
-   
+{  
    double stop_loss;
    double take_profit;
    if(tradeType == TradeType::TRADE_BUY)
@@ -81,6 +79,7 @@ void Trader::trade(TradeType tradeType, int sl, int tp, int ts)
    }
       
    reset_trailling_start();
+   set_trailling(ts);
 }      
 
 void Trader::update_mql_tick()
@@ -100,7 +99,6 @@ void Trader::start(string symbol)
    _symbol = symbol;
    update_tick_size();
 }
-
 
 double Trader::get_lot() const
 {
@@ -135,13 +133,15 @@ void Trader::update_trailling_stop_start(int trailling_start)
          _has_activated_trailling_start = true;
       }
    }
+   
+   set_trailling(_trainlling_stop_distance_ticks);
 }
 
 void Trader::update_trailling_stop()
 {
-   if(_trainlling_stop_distance_ticks == 0)
-      return ;
-
+   if(!_has_activated_trailling_start || _trainlling_stop_distance_ticks == 0)
+      return;
+   
    if(get_position_type() == POSITION_TYPE_BUY)
    {
       double target = bid() - _trainlling_stop_distance_ticks * tick();

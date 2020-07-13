@@ -14,6 +14,7 @@ double weights_close[] = {-0.35,0.41,-0.36,-0.42,-0.41,-0.77,-0.64,-0.42,-0.53,0
 double weights_take_profit[] = {-0.8,-0.8,-0.9,-0.9,-0.7,1.0,0.7,-0.8,-0.2,0.9};
 double weights_stop_loss[] = {0.1,0.8,-1.0,0.5,0.6,1.0,0.3,-0.9,0.9,0.5};
 double weights_break_even[] = {1.0,1.0,-0.2,1.0,0.3,0.4,0.5,0.2,-0.9,1.0};
+double weights_trailling[] = {-1.0,-0.9,-1.0,-1.0,-1.0,0.5,-1.0,-1.0,-1.0,-1.0};
 #define COUNT_INPUTS 15
 #define COUNT_NEURONS 10
 
