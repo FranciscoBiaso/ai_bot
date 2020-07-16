@@ -32,7 +32,6 @@ enum Neurons{
    // \/ master
    _MASTER
 };
-
 /*
 //--- weight values
 input double w0=0.5;
