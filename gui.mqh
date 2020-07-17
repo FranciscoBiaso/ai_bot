@@ -28,6 +28,9 @@ class _GUI : public CAppDialog
       CLabel            m_label_financial_take_by_day;
       CLabel            m_label_financial_take_by_week;
       CLabel            m_label_financial_take_by_mon;
+      CLabel            m_label_financial_loss_by_day;
+      CLabel            m_label_financial_loss_by_week;
+      CLabel            m_label_financial_loss_by_mon;
       CLabel            m_label_financial_loss;
       CComboBox         m_combo_box_stop_loss;
       CComboBox         m_combo_box_take_profit;
@@ -39,6 +42,9 @@ class _GUI : public CAppDialog
       CComboBox         m_combo_box_financial_take_by_day;
       CComboBox         m_combo_box_financial_take_by_week;
       CComboBox         m_combo_box_financial_take_by_mon;
+      CComboBox         m_combo_box_financial_loss_by_day;
+      CComboBox         m_combo_box_financial_loss_by_week;
+      CComboBox         m_combo_box_financial_loss_by_mon;
       CComboBox         m_combo_box_financial_loss;
       
       double _label_percentage_of_main_window_size;
@@ -61,7 +67,7 @@ class _GUI : public CAppDialog
       _GUI(_Socket *);
       ~_GUI();   
       
-      void centralize_label(CLabel &);   
+      void centralize_label(CLabel &, int center_position ,int height);   
       void update_label(CLabel & label, int w, int h);
       string get_label_font();
       
